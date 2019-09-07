@@ -82,6 +82,9 @@ export const setupCaching = ({
 
   // eslint-disable-next-line no-param-reassign
   collection.findOneById = async (id, { ttl } = {}) => {
+    if (!id) {
+      return null
+    }
     const key = cachePrefix + id
 
     const cacheDoc = await cache.get(key)
