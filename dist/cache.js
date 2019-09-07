@@ -78,6 +78,10 @@ const setupCaching = ({
   collection.findOneById = async (id, {
     ttl
   } = {}) => {
+    if (!id) {
+      return null;
+    }
+
     const key = cachePrefix + id;
     const cacheDoc = await cache.get(key);
 
