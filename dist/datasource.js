@@ -16,11 +16,11 @@ var _cache = require("./cache");
 class MongoDataSource extends _apolloDatasource.DataSource {
   // https://github.com/apollographql/apollo-server/blob/master/packages/apollo-datasource/src/index.ts
   initialize(config) {
-    this.context = config.context;
-
-    if (!this.collections || !this.collections.length) {
-      throw new _apolloServerErrors.ApolloError('Child class of MongoDataSource must set this.collections in constructor');
-    }
+    this.context = config.context; // if (!this.collections || !this.collections.length) {
+    //   throw new ApolloError(
+    //     'Child class of MongoDataSource must set this.collections in constructor'
+    //   )
+    // }
 
     const cache = config.cache || new _apolloServerCaching.InMemoryLRUCache();
     const {
