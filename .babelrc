@@ -1,8 +1,14 @@
 {
   "presets": [
-    ["latest-node", {
-      "target": "current"
-    }]
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
   ],
-  "plugins": ["@babel/plugin-transform-runtime"]
+  "sourceMaps": "inline",
+  "retainLines": true
 }
