@@ -1,3 +1,2 @@
-"use strict";Object.defineProperty(exports, "__esModule", { value: true });Object.defineProperty(exports, "MongoDataSource", { enumerable: true, get: function () {return _datasource.MongoDataSource;} });
-var _datasource = require("./datasource");
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgaW1wb3J0L3ByZWZlci1kZWZhdWx0LWV4cG9ydFxuZXhwb3J0IHsgTW9uZ29EYXRhU291cmNlIH0gZnJvbSAnLi9kYXRhc291cmNlJ1xuIl19
+// eslint-disable-next-line import/prefer-default-export
+export { MongoDataSource } from './datasource';

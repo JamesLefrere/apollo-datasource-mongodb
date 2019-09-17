@@ -29,6 +29,7 @@
     "apollo-datasource": "^0.3.1",
     "apollo-server-caching": "^0.3.1",
     "apollo-server-errors": "^2.2.1",
+    "babel-preset-react-app": "^9.0.1",
     "dataloader": "^1.4.0",
     "sift": "^8.3.3"
   },

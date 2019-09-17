@@ -1,9 +1,7 @@
 {
+
   "presets": [
-    ["latest-node", {
-      "target": "current"
-    }]
+    "react-app"
   ],
-  "sourceMaps": "inline",
   "retainLines": true
 }

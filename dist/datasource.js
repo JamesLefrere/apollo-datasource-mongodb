@@ -1,31 +1,30 @@
-"use strict";Object.defineProperty(exports, "__esModule", { value: true });exports.MongoDataSource = void 0;var _apolloDatasource = require("apollo-datasource");
+import _classCallCheck from "/Users/sundevlohr/Sites/apollo-datasource-mongodb/node_modules/@babel/runtime/helpers/esm/classCallCheck";import _createClass from "/Users/sundevlohr/Sites/apollo-datasource-mongodb/node_modules/@babel/runtime/helpers/esm/createClass";import _possibleConstructorReturn from "/Users/sundevlohr/Sites/apollo-datasource-mongodb/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn";import _getPrototypeOf from "/Users/sundevlohr/Sites/apollo-datasource-mongodb/node_modules/@babel/runtime/helpers/esm/getPrototypeOf";import _inherits from "/Users/sundevlohr/Sites/apollo-datasource-mongodb/node_modules/@babel/runtime/helpers/esm/inherits";import { DataSource } from 'apollo-datasource';
+// import { ApolloError } from 'apollo-server-errors'
+import { InMemoryLRUCache } from 'apollo-server-caching';
 
-var _apolloServerCaching = require("apollo-server-caching");
+import { setupCaching } from './cache';var
 
-var _cache = require("./cache"); // import { ApolloError } from 'apollo-server-errors'
+MongoDataSource = /*#__PURE__*/function (_DataSource) {_inherits(MongoDataSource, _DataSource);function MongoDataSource() {_classCallCheck(this, MongoDataSource);return _possibleConstructorReturn(this, _getPrototypeOf(MongoDataSource).apply(this, arguments));}_createClass(MongoDataSource, [{ key: "initialize",
+    // https://github.com/apollographql/apollo-server/blob/master/packages/apollo-datasource/src/index.ts
+    value: function initialize(config) {
+      this.context = config.context;
 
-class MongoDataSource extends _apolloDatasource.DataSource {
-  // https://github.com/apollographql/apollo-server/blob/master/packages/apollo-datasource/src/index.ts
-  initialize(config) {
-    this.context = config.context;
+      // if (!this.collections || !this.collections.length) {
+      //   throw new ApolloError(
+      //     'Child class of MongoDataSource must set this.collections in constructor'
+      //   )
+      // }
 
-    // if (!this.collections || !this.collections.length) {
-    //   throw new ApolloError(
-    //     'Child class of MongoDataSource must set this.collections in constructor'
-    //   )
-    // }
+      var cache = config.cache || new InMemoryLRUCache();var
 
-    const cache = config.cache || new _apolloServerCaching.InMemoryLRUCache();
+      mongoose = this.mongoose;var
 
-    const { mongoose } = this;
+      debug = this.debug;
 
-    const { debug } = this;
+      this.collections.forEach(function (collection) {return (
+          setupCaching({ collection: collection, cache: cache, mongoose: mongoose, debug: debug }));});
 
-    this.collections.forEach((collection) =>
-    (0, _cache.setupCaching)({ collection, cache, mongoose, debug }));
-
-  }}
+    } }]);return MongoDataSource;}(DataSource);
 
 // eslint-disable-next-line import/prefer-default-export
-exports.MongoDataSource = MongoDataSource;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9kYXRhc291cmNlLmpzIl0sIm5hbWVzIjpbIk1vbmdvRGF0YVNvdXJjZSIsIkRhdGFTb3VyY2UiLCJpbml0aWFsaXplIiwiY29uZmlnIiwiY29udGV4dCIsImNhY2hlIiwiSW5NZW1vcnlMUlVDYWNoZSIsIm1vbmdvb3NlIiwiZGVidWciLCJjb2xsZWN0aW9ucyIsImZvckVhY2giLCJjb2xsZWN0aW9uIl0sIm1hcHBpbmdzIjoiNEdBQUE7O0FBRUE7O0FBRUEsZ0MsQ0FIQTs7QUFLQSxNQUFNQSxlQUFOLFNBQThCQyw0QkFBOUIsQ0FBeUM7QUFDdkM7QUFDQUMsRUFBQUEsVUFBVSxDQUFDQyxNQUFELEVBQVM7QUFDakIsU0FBS0MsT0FBTCxHQUFlRCxNQUFNLENBQUNDLE9BQXRCOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUEsVUFBTUMsS0FBSyxHQUFHRixNQUFNLENBQUNFLEtBQVAsSUFBZ0IsSUFBSUMscUNBQUosRUFBOUI7O0FBRUEsVUFBTSxFQUFFQyxRQUFGLEtBQWUsSUFBckI7O0FBRUEsVUFBTSxFQUFFQyxLQUFGLEtBQVksSUFBbEI7O0FBRUEsU0FBS0MsV0FBTCxDQUFpQkMsT0FBakIsQ0FBeUIsQ0FBQUMsVUFBVTtBQUNqQyw2QkFBYSxFQUFFQSxVQUFGLEVBQWNOLEtBQWQsRUFBcUJFLFFBQXJCLEVBQStCQyxLQUEvQixFQUFiLENBREY7O0FBR0QsR0FwQnNDOztBQXNCekMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBEYXRhU291cmNlIH0gZnJvbSAnYXBvbGxvLWRhdGFzb3VyY2UnXG4vLyBpbXBvcnQgeyBBcG9sbG9FcnJvciB9IGZyb20gJ2Fwb2xsby1zZXJ2ZXItZXJyb3JzJ1xuaW1wb3J0IHsgSW5NZW1vcnlMUlVDYWNoZSB9IGZyb20gJ2Fwb2xsby1zZXJ2ZXItY2FjaGluZydcblxuaW1wb3J0IHsgc2V0dXBDYWNoaW5nIH0gZnJvbSAnLi9jYWNoZSdcblxuY2xhc3MgTW9uZ29EYXRhU291cmNlIGV4dGVuZHMgRGF0YVNvdXJjZSB7XG4gIC8vIGh0dHBzOi8vZ2l0aHViLmNvbS9hcG9sbG9ncmFwaHFsL2Fwb2xsby1zZXJ2ZXIvYmxvYi9tYXN0ZXIvcGFja2FnZXMvYXBvbGxvLWRhdGFzb3VyY2Uvc3JjL2luZGV4LnRzXG4gIGluaXRpYWxpemUoY29uZmlnKSB7XG4gICAgdGhpcy5jb250ZXh0ID0gY29uZmlnLmNvbnRleHRcblxuICAgIC8vIGlmICghdGhpcy5jb2xsZWN0aW9ucyB8fCAhdGhpcy5jb2xsZWN0aW9ucy5sZW5ndGgpIHtcbiAgICAvLyAgIHRocm93IG5ldyBBcG9sbG9FcnJvcihcbiAgICAvLyAgICAgJ0NoaWxkIGNsYXNzIG9mIE1vbmdvRGF0YVNvdXJjZSBtdXN0IHNldCB0aGlzLmNvbGxlY3Rpb25zIGluIGNvbnN0cnVjdG9yJ1xuICAgIC8vICAgKVxuICAgIC8vIH1cblxuICAgIGNvbnN0IGNhY2hlID0gY29uZmlnLmNhY2hlIHx8IG5ldyBJbk1lbW9yeUxSVUNhY2hlKClcblxuICAgIGNvbnN0IHsgbW9uZ29vc2UgfSA9IHRoaXNcblxuICAgIGNvbnN0IHsgZGVidWcgfSA9IHRoaXNcblxuICAgIHRoaXMuY29sbGVjdGlvbnMuZm9yRWFjaChjb2xsZWN0aW9uID0+XG4gICAgICBzZXR1cENhY2hpbmcoeyBjb2xsZWN0aW9uLCBjYWNoZSwgbW9uZ29vc2UsIGRlYnVnIH0pXG4gICAgKVxuICB9XG59XG4vLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgaW1wb3J0L3ByZWZlci1kZWZhdWx0LWV4cG9ydFxuZXhwb3J0IHsgTW9uZ29EYXRhU291cmNlIH1cbiJdfQ==
+export { MongoDataSource };
