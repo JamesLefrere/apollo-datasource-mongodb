@@ -6,53 +6,40 @@
   "files": [
     "/dist"
   ],
+  "types": "/dist/index.d.ts",
   "scripts": {
-    "build": "babel src -d dist --ignore **/*.test.js",
-    "dev": "babel src -d dist --watch --ignore **/*.test.js",
+    "build": "tsc",
     "test": "jest",
     "test:clear-cache": "jest --clearCache",
-    "lint": "eslint .",
     "clean": "rimraf dist",
-    "lint-fix": "eslint --fix .",
-    "prebuild": "npm run clean",
-    "prepublishOnly": "npm run build",
-    "preversion": "npm run prettify && npm run lint && npm test && npm run build",
-    "prettify": "prettier --write **/*.js",
-    "version": "standard-changelog && git add CHANGELOG.md",
-    "postpublish": "git push https://github.com/ecerroni/apollo-datasource-mongodb.git master --follow-tags"
+    "prebuild": "yarn clean",
+    "prepublishOnly": "yarn build",
+    "preversion": "yarn prettify && yarn lint && yarn test && yarn build",
+    "prettify": "prettier --write src/**/*.ts",
+    "version": "standard-changelog && git add CHANGELOG.md"
   },
   "engines": {
     "node": ">=8"
   },
   "dependencies": {
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "apollo-datasource": "^0.3.1",
-    "apollo-server-caching": "^0.3.1",
+    "apollo-datasource": "^0.6.3",
+    "apollo-server-caching": "^0.5.0",
     "apollo-server-errors": "^2.2.1",
-    "babel-preset-react-app": "^9.0.1",
+    "mongodb": "^3.3.5",
     "dataloader": "^1.4.0",
     "sift": "^8.3.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/preset-env": "^7.4.3",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.7.1",
-    "babel-preset-latest-node": "^3.2.1",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.0.0",
+    "@types/jest": "^24.0.23",
+    "@types/mongodb": "^3.3.11",
     "graphql": "^14.2.1",
     "husky": "^1.1.2",
-    "jest": "^24.7.1",
+    "jest": "^24.9.0",
     "lint-staged": "^7.3.0",
     "prettier": "^1.16.4",
     "standard-changelog": "^2.0.1",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2",
     "waait": "^1.0.4"
   },
   "husky": {
@@ -62,7 +49,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
+      "yarn prettify",
       "git add"
     ]
   },
