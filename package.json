@@ -8,7 +8,7 @@
   ],
   "types": "/dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc --declaration",
     "test": "jest",
     "test:clear-cache": "jest --clearCache",
     "clean": "rimraf dist",

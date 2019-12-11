@@ -18,8 +18,8 @@ type CacheValue<TSchema extends Schema> =
   | string[]; // Or an array of keys
 
 export class CachedCollection<TSchema extends Schema> {
+  public readonly collection: Collection<TSchema>
   private readonly cache: KeyValueCache<CacheValue<TSchema>>
-  private readonly collection: Collection<TSchema>
   private readonly loader: DataLoader<string, TSchema>
   private readonly queryLoader: DataLoader<string, TSchema[]>
   private readonly cachePrefix: string
@@ -76,13 +76,13 @@ export class CachedCollection<TSchema extends Schema> {
     }
   }
 
-  public async findOneById(id, { ttl } = { ttl: undefined }) {
+  public async findOneById(id, { ttl } = { ttl: undefined }): Promise<TSchema> {
     if (!id) return null
 
     const key = this.cachePrefix + id
 
     const cacheDoc = await this.cache.get(key)
-    if (cacheDoc) return cacheDoc
+    if (cacheDoc) return cacheDoc as TSchema
 
     const doc = await this.loader.load(id)
 
@@ -91,16 +91,16 @@ export class CachedCollection<TSchema extends Schema> {
     return doc
   }
 
-  public async findManyByIds(ids, { ttl } = { ttl: undefined }) {
+  public async findManyByIds(ids, { ttl } = { ttl: undefined }): Promise<TSchema[]> {
     // TODO this could be more efficient (find the subset that doesn't exist in cache, and use { _id: { $in: ids } }
     return Promise.all(ids.map(id => this.findOneById(id, { ttl })))
   }
 
-  public async findManyByQuery(query, { ttl } = { ttl: undefined }) {
+  public async findManyByQuery(query, { ttl } = { ttl: undefined }): Promise<TSchema[]> {
     const key = this.cachePrefix + JSON.stringify(query)
 
     const cacheDocs = await this.cache.get(key)
-    if (cacheDocs) return cacheDocs
+    if (cacheDocs) return cacheDocs as TSchema[]
 
     const docs = await this.queryLoader.load(query)
 

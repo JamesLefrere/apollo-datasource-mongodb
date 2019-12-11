@@ -6,10 +6,9 @@ export interface Schema {
 export interface CachedCollectionOptions {
     readonly allowFlushingCollectionCache: boolean;
 }
-declare type CacheValue<TSchema extends Schema> = TSchema | TSchema[] | string | string[];
 export declare class CachedCollection<TSchema extends Schema> {
+    readonly collection: Collection<TSchema>;
     private readonly cache;
-    private readonly collection;
     private readonly loader;
     private readonly queryLoader;
     private readonly cachePrefix;
@@ -20,14 +19,13 @@ export declare class CachedCollection<TSchema extends Schema> {
     private handleCache;
     findOneById(id: any, { ttl }?: {
         ttl: any;
-    }): Promise<CacheValue<TSchema>>;
+    }): Promise<TSchema>;
     findManyByIds(ids: any, { ttl }?: {
         ttl: any;
-    }): Promise<[unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown]>;
+    }): Promise<TSchema[]>;
     findManyByQuery(query: any, { ttl }?: {
         ttl: any;
-    }): Promise<CacheValue<TSchema>>;
+    }): Promise<TSchema[]>;
     deleteFromCacheById(id: unknown): Promise<void>;
     flushCollectionCache(): Promise<boolean>;
 }
-export {};
